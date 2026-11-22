@@ -1,0 +1,69 @@
+name: Backend checks
+
+on:
+  push:
+    paths:
+      - "ai-service/**"
+      - ".github/workflows/backend-checks.yml"
+  pull_request:
+    paths:
+      - "ai-service/**"
+      - ".github/workflows/backend-checks.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Photo review API smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install backend dependencies
+        run: python -m pip install -r ai-service/requirements.txt
+      - name: Generate sample photos
+        working-directory: ai-service
+        run: python generate_sample_images.py
+      - name: Verify service startup and both photo review inputs
+        working-directory: ai-service
+        run: |
+          python - <<'PY'
+          import app
+
+          client = app.app.test_client()
+
+          health = client.get("/api/health")
+          assert health.status_code == 200, health.get_data(as_text=True)
+          assert health.get_json()["status"] == "online"
+
+          sample = client.post(
+              "/api/audit/analyze",
+              json={
+                  "sample_filename": "contaminated_wet_waste.jpg",
+                  "expected_stream": "wet",
+              },
+          )
+          assert sample.status_code == 200, sample.get_data(as_text=True)
+          sample_result = sample.get_json()
+          assert "audit_score" in sample_result
+          assert "annotated_image" in sample_result
+
+          with open("sample_images/contaminated_wet_waste.jpg", "rb") as photo:
+              upload = client.post(
+                  "/api/audit/analyze",
+                  data={
+                      "image": (photo, "review-photo.jpg"),
+                      "expected_stream": "wet",
+                  },
+                  content_type="multipart/form-data",
+              )
+          assert upload.status_code == 200, upload.get_data(as_text=True)
+          upload_result = upload.get_json()
+          assert "audit_score" in upload_result
+          assert "annotated_image" in upload_result
+          PY

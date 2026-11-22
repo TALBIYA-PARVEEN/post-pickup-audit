@@ -10,7 +10,6 @@ from flask_cors import CORS
 import cv2
 import numpy as np
 from PIL import Image
-from ultralytics import YOLO
 
 app = Flask(__name__)
 CORS(app)
@@ -570,7 +569,7 @@ def health():
         "status": "online",
         "service": "Post-Pickup Waste Integrity AI Service",
         "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-        "yolo_ready": True
+        "yolo_ready": yolo_model is not None
     })
 
 @app.route("/api/sample-images", methods=["GET"])
