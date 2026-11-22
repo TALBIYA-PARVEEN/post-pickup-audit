@@ -144,14 +144,13 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
       <div className="mb-6">
         <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
           <Truck className="w-4 h-4" />
-          <span>Field Inspection & Handoff Audit Terminal</span>
+          <span>FIELD TEAM · NEW AUDIT</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-          Waste Handoff Integrity Audit
+          Record a handoff audit
         </h1>
         <p className="text-sm text-gray-400 mt-1 max-w-3xl">
-          Capture photographic evidence at waste transfer points. Our computer vision model verifies
-          stream purity and detects post-pickup mixing before waste is transferred.
+          Choose a route and handoff, add a photo, then review the findings before saving them to the route history.
         </p>
       </div>
 
@@ -163,14 +162,14 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
               <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs flex items-center justify-center font-bold">
                 1
               </span>
-              <span>Handoff Stage & Vehicle Target</span>
+              <span>Route and handoff details</span>
             </h2>
 
             {/* Route Selection */}
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-1.5">
-                  Select Active Route
+                  Route
                 </label>
                 <select
                   value={routeId}
@@ -188,7 +187,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
               {/* Handoff Stage Selector */}
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-1.5">
-                  Handoff Audit Point
+                  Where was the photo taken?
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
@@ -220,7 +219,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                     }`}
                   >
                     <Building className="w-4 h-4" />
-                    <span className="text-center">Transfer Stn</span>
+                    <span className="text-center">Transfer station</span>
                   </button>
 
                   <button
@@ -244,7 +243,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
               {/* Stream Selector */}
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-1.5">
-                  Expected Waste Stream
+                  Waste stream
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
@@ -292,17 +291,17 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                 <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs flex items-center justify-center font-bold">
                   2
                 </span>
-                <span>Compartment Photo Evidence</span>
+                <span>Add a photo</span>
               </h2>
               <span className="text-xs text-amber-400 font-medium flex items-center space-x-1">
                 <Sparkles className="w-3 h-3" />
-                <span>One-Click Samples</span>
+                <span>Sample photos</span>
               </span>
             </div>
 
             {/* Quick Sample Selector */}
             <div className="space-y-2 mb-4">
-              <label className="text-xs text-gray-400">Choose Realistic Demo Scenario:</label>
+              <label className="text-xs text-gray-400">Choose a sample photo or upload your own</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {sampleImages.map((s) => (
                   <button
@@ -340,7 +339,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
               <div className="flex flex-col items-center justify-center space-y-1">
                 <Upload className="w-6 h-6 text-gray-400" />
                 <span className="text-xs text-gray-300 font-medium">
-                  {customFile ? customFile.name : 'Or upload image from your device'}
+                  {customFile ? customFile.name : 'Upload a photo from your device'}
                 </span>
                 <span className="text-[10px] text-gray-500">Supports JPG, PNG, WEBP</span>
               </div>
@@ -359,12 +358,12 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
               {isAnalyzing ? (
                 <>
                   <div className="w-4 h-4 border-2 border-gray-950 border-t-transparent rounded-full animate-spin" />
-                  <span>Scanning Compartment with YOLO & OpenCV...</span>
+                  <span>Reviewing photo...</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  <span>Run AI Vision Audit</span>
+                  <span>Review photo</span>
                 </>
               )}
             </button>
@@ -379,7 +378,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                 <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs flex items-center justify-center font-bold">
                   3
                 </span>
-                <span>Computer Vision Assessment</span>
+                <span>Photo review</span>
               </h2>
               {analysisResult && (
                 <div
@@ -408,8 +407,8 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                     <div className="absolute inset-0 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
                   </div>
                   <div className="text-center">
-                    <p className="text-sm font-semibold text-white">YOLOv8 Inference in Progress</p>
-                    <p className="text-xs text-gray-400">Classifying waste textures & specular reflections...</p>
+                    <p className="text-sm font-semibold text-white">Reviewing your photo</p>
+                    <p className="text-xs text-gray-400">Looking for materials that do not belong in this waste stream.</p>
                   </div>
                 </div>
               )}
@@ -431,7 +430,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
               <div className="mt-5 space-y-4">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div className="bg-gray-950 border border-gray-800 rounded-xl p-3">
-                    <span className="text-[11px] text-gray-400 uppercase font-medium">Handoff Score</span>
+                    <span className="text-[11px] text-gray-400 uppercase font-medium">Integrity score</span>
                     <div
                       className={`text-xl font-extrabold mt-0.5 ${
                         analysisResult.audit_score >= 90
@@ -446,7 +445,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                   </div>
 
                   <div className="bg-gray-950 border border-gray-800 rounded-xl p-3">
-                    <span className="text-[11px] text-gray-400 uppercase font-medium">Visual Contamination</span>
+                    <span className="text-[11px] text-gray-400 uppercase font-medium">Possible contamination</span>
                     <div
                       className={`text-xl font-extrabold mt-0.5 ${
                         analysisResult.contamination_estimate > 10 ? 'text-red-400' : 'text-emerald-400'
@@ -457,20 +456,20 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                   </div>
 
                   <div className="bg-gray-950 border border-gray-800 rounded-xl p-3">
-                    <span className="text-[11px] text-gray-400 uppercase font-medium">AI Confidence</span>
+                    <span className="text-[11px] text-gray-400 uppercase font-medium">Model confidence</span>
                     <div className="text-xl font-extrabold text-blue-400 mt-0.5">
                       {Math.round(analysisResult.confidence * 100)}%
                     </div>
                   </div>
 
                   <div className="bg-gray-950 border border-gray-800 rounded-xl p-3">
-                    <span className="text-[11px] text-gray-400 uppercase font-medium">Foreign Material</span>
+                    <span className="text-[11px] text-gray-400 uppercase font-medium">Foreign items</span>
                     <div
                       className={`text-sm font-bold mt-1.5 ${
                         analysisResult.foreign_material_detected ? 'text-red-400' : 'text-emerald-400'
                       }`}
                     >
-                      {analysisResult.foreign_material_detected ? 'DETECTED' : 'NONE'}
+                      {analysisResult.foreign_material_detected ? 'Found' : 'Clear'}
                     </div>
                   </div>
                 </div>
@@ -478,9 +477,9 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                 {/* Detected Materials Breakdown */}
                 <div className="bg-gray-950 border border-gray-800 rounded-xl p-3.5 space-y-2">
                   <div className="text-xs font-semibold text-gray-300 flex items-center justify-between">
-                    <span>Detected Material Classes:</span>
+                    <span>Materials found</span>
                     <span className="text-[11px] text-gray-400">
-                      Expected: {stream.toUpperCase()} WASTE
+                      Expected stream {stream.toUpperCase()} WASTE
                     </span>
                   </div>
 
@@ -512,7 +511,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                 <div className="space-y-3">
                   <div>
                     <label className="block text-xs font-medium text-gray-400 mb-1">
-                      Operator Audit Remarks & Chain-of-Custody Notes:
+                      Notes for the next team
                     </label>
                     <textarea
                       rows={2}
@@ -529,11 +528,11 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                       className="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 transition-all"
                     >
                       {isCommitting ? (
-                        <span>Logging to Digital Chain of Custody...</span>
+                        <span>Saving audit...</span>
                       ) : (
                         <>
                           <CheckCircle2 className="w-4 h-4" />
-                          <span>Commit Audit to Digital Chain of Custody</span>
+                          <span>Save audit to route history</span>
                         </>
                       )}
                     </button>
@@ -553,8 +552,7 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
                     <div className="p-3 rounded-xl bg-emerald-950/70 border border-emerald-800/80 text-emerald-300 text-xs flex items-center space-x-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                       <span>
-                        Handoff audit committed! Route Integrity Score has been dynamically updated in the
-                        Municipality Dashboard.
+                        Audit saved. The route score and handoff history have been updated.
                       </span>
                     </div>
                   )}
@@ -563,10 +561,9 @@ export const HandoffAuditForm: React.FC<HandoffAuditFormProps> = ({
             ) : (
               <div className="mt-5 p-6 rounded-xl bg-gray-950/40 border border-dashed border-gray-800 text-center text-gray-400 text-xs space-y-2">
                 <Sparkles className="w-6 h-6 text-gray-500 mx-auto" />
-                <p className="font-medium text-gray-300">Ready for Computer Vision Inspection</p>
+                <p className="font-medium text-gray-300">Ready to review a photo</p>
                 <p className="max-w-md mx-auto text-gray-500">
-                  Click "Run AI Vision Audit" on the left to analyze the compartment photograph. YOLO and OpenCV
-                  will detect visible foreign materials and evaluate segregation integrity.
+                  Choose a sample photo or upload one to check for materials outside the selected waste stream.
                 </p>
               </div>
             )}

@@ -30,6 +30,7 @@ export function App() {
   const [isOnline, setIsOnline] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pitchStep, setPitchStep] = useState<number>(0);
+  const [isDemoGuideActive, setIsDemoGuideActive] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -117,19 +118,22 @@ export function App() {
     setActiveTab('audit');
   };
 
+  const handleHeaderTabChange = (tab: 'dashboard' | 'audit' | 'map' | 'citizen' | 'demo') => {
+    setActiveTab(tab);
+    setIsDemoGuideActive(tab === 'demo');
+  };
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-gray-950">
       {/* Header */}
       <Header
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={handleHeaderTabChange}
         isOnline={isOnline}
-        onResetDemo={handleResetDemo}
-        onSimulateBreakdown={handleSimulateBreakdown}
       />
 
       {/* Interactive Hackathon Pitch Banner (visible on demo tab or togglable) */}
-      {(activeTab === 'demo' || activeTab === 'dashboard') && (
+      {(activeTab === 'demo' || isDemoGuideActive) && (
         <PitchDemoBanner
           currentStep={pitchStep}
           onStepChange={setPitchStep}
@@ -142,7 +146,7 @@ export function App() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-gray-900 border border-emerald-500/50 shadow-2xl rounded-2xl px-4 py-3 text-sm text-emerald-300 flex items-center space-x-2 animate-bounce">
+        <div role="status" aria-live="polite" className="fixed bottom-5 right-5 z-50 bg-gray-900 border border-emerald-500/30 shadow-lg rounded-xl px-4 py-3 text-sm text-emerald-300 flex items-center space-x-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
           <span>{toastMessage}</span>
         </div>
@@ -154,7 +158,7 @@ export function App() {
           <div className="h-96 flex flex-col items-center justify-center space-y-4">
             <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-400 rounded-full animate-spin" />
             <p className="text-sm text-gray-400 font-medium">
-              Connecting to Post-Pickup Waste Integrity AI & Telemetry Service...
+              Loading route and audit data...
             </p>
           </div>
         ) : (
@@ -214,20 +218,17 @@ export function App() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-gray-900 bg-gray-950 py-6 text-center text-xs text-gray-500">
+      <footer className="app-footer py-5 text-center text-xs text-gray-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div>
-            <strong className="text-gray-400 font-bold">Post-Pickup Waste Integrity Platform</strong> —
-            Digital Chain of Custody for Segregated Waste
+            <strong className="text-gray-500 font-semibold">CustodyWaste</strong> · A clear record of every waste handoff
           </div>
           <div className="flex items-center space-x-3">
-            <span>YOLOv8 Object Detection</span>
+            <span>Route records</span>
             <span>•</span>
-            <span>OpenCV Feature Vision</span>
+            <span>Photo evidence</span>
             <span>•</span>
-            <span>Spring Boot REST</span>
-            <span>•</span>
-            <span>React + Vite</span>
+            <span>Handoff history</span>
           </div>
         </div>
       </footer>

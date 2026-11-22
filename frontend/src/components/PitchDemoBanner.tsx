@@ -33,47 +33,47 @@ export const PitchDemoBanner: React.FC<PitchDemoBannerProps> = ({
 }) => {
   const steps = [
     {
-      title: '1. The Citizen Baseline (Route B)',
-      desc: 'Show that households properly segregated waste at the doorstep (Audit Score: 100/100).',
+      title: '1. Start with household collection',
+      desc: 'The first check shows that waste was correctly separated before collection.',
       tab: 'dashboard',
-      actionLabel: 'Inspect Route B Baseline',
+      actionLabel: 'View collection baseline',
       run: () => {
         onNavigateTab('dashboard');
       },
     },
     {
-      title: '2. The Transfer Station Handoff',
-      desc: 'At Transfer Station TS-04, the operator takes a photo of the wet waste hopper.',
+      title: '2. Review the transfer handoff',
+      desc: 'A team member records the waste condition when it changes hands.',
       tab: 'audit',
-      actionLabel: 'Go to Handoff Audit Form',
+      actionLabel: 'Open the audit form',
       run: () => {
         onNavigateTab('audit');
       },
     },
     {
-      title: '3. Run YOLO AI Vision Detection',
-      desc: 'Our computer vision model flags foreign PET plastic bottles and blue polybags with red bounding boxes.',
+      title: '3. Check the handoff photo',
+      desc: 'The photo review highlights items that do not belong in the selected waste stream.',
       tab: 'audit',
-      actionLabel: 'Run AI Model Scan',
+      actionLabel: 'Review a photo',
       run: () => {
         onNavigateTab('audit');
       },
     },
     {
-      title: '4. The Breakdown: Route Score Plummets',
-      desc: 'Simulate the post-pickup contamination event. Route B drops to 66.7 (Below 70 threshold).',
+      title: '4. See the impact of contamination',
+      desc: 'Simulate a problem at transfer and see how it changes the route score.',
       tab: 'dashboard',
-      actionLabel: 'Simulate Breakdown Score',
+      actionLabel: 'Simulate a handoff issue',
       run: () => {
         onTriggerBreakdown();
         onNavigateTab('dashboard');
       },
     },
     {
-      title: '5. Municipality Inspection Alert',
-      desc: 'The municipality dashboard immediately flags Route B and pinpoints Transfer Station TS-04 as the failure point.',
+      title: '5. Follow up on the flagged route',
+      desc: 'The overview points reviewers to the handoff that needs attention.',
       tab: 'dashboard',
-      actionLabel: 'View Municipality Alert',
+      actionLabel: 'View the route alert',
       run: () => {
         confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
         onNavigateTab('dashboard');
@@ -84,7 +84,7 @@ export const PitchDemoBanner: React.FC<PitchDemoBannerProps> = ({
   const current = steps[currentStep] || steps[0];
 
   return (
-    <div className="bg-gradient-to-r from-amber-950/80 via-gray-900 to-emerald-950/80 border-b border-amber-500/30 px-4 py-3 sticky top-16 z-40 backdrop-blur-md">
+    <div className="bg-amber-50 border-b border-amber-200 px-4 py-4 relative z-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
         {/* Step Indicator & Description */}
         <div className="flex items-center space-x-3">
@@ -94,7 +94,7 @@ export const PitchDemoBanner: React.FC<PitchDemoBannerProps> = ({
           <div>
             <div className="flex items-center space-x-2">
               <span className="text-xs font-black uppercase text-amber-400 tracking-wider">
-                Hackathon Pitch Demo Flow
+                Guided demo
               </span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-800 text-gray-300">
                 Step {currentStep + 1} of {steps.length}
@@ -114,7 +114,7 @@ export const PitchDemoBanner: React.FC<PitchDemoBannerProps> = ({
                 onStepChange(currentStep + 1);
               }
             }}
-            className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-emerald-400 text-gray-950 font-bold text-xs shadow-md shadow-amber-500/20 hover:brightness-110 transition-all flex items-center space-x-1.5"
+            className="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-amber-500/20 hover:brightness-110 transition-all flex items-center space-x-1.5"
           >
             <span>{current.actionLabel}</span>
             <ArrowRight className="w-3.5 h-3.5" />

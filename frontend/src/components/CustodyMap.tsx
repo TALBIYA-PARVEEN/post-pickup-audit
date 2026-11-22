@@ -59,13 +59,13 @@ export const CustodyMap: React.FC<CustodyMapProps> = ({ routes, onSelectRoute })
         <div>
           <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
             <Truck className="w-4 h-4" />
-            <span>Geospatial Custody Telemetry</span>
+            <span>ROUTE LOCATIONS</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-            Live Route & Handoff Inspection Map
+            Route and handoff map
           </h1>
           <p className="text-sm text-gray-400 mt-1">
-            Track waste custody transfer locations across municipal wards and processing plants.
+            See the collection, transfer, and delivery points for each route.
           </p>
         </div>
 

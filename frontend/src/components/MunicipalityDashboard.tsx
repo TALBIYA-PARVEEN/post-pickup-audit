@@ -95,14 +95,13 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
         <div>
           <div className="flex items-center space-x-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
             <Activity className="w-4 h-4" />
-            <span>Municipal Solid Waste Oversight Authority</span>
+            <span>MUNICIPAL OPERATIONS</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-            Post-Pickup Waste Integrity & Chain-of-Custody Dashboard
+            Route integrity overview
           </h1>
           <p className="text-sm text-gray-400 mt-1 max-w-3xl">
-            Real-time audit telemetry holding waste transportation haulers and transfer stations
-            accountable. Detects where segregated waste is compromised before reaching processing facilities.
+            Follow each handoff from collection to processing. Review route scores, spot issues early, and see where segregation needs attention.
           </p>
         </div>
 
@@ -110,7 +109,7 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center space-x-4 shadow-xl shrink-0">
           <div className="text-center">
             <span className="text-[11px] text-gray-400 uppercase font-semibold">
-              Fleet Integrity Index
+              Fleet integrity
             </span>
             <div className="text-3xl font-black text-emerald-400 mt-0.5">
               {analytics?.fleet_integrity_score || 84.8}%
@@ -121,15 +120,15 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
           <div className="text-xs space-y-1">
             <div className="text-emerald-400 font-semibold flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-              <span>90–100: High Integrity</span>
+              <span>90–100 · On track</span>
             </div>
             <div className="text-amber-400 font-semibold flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
-              <span>70–89: Needs Attention</span>
+              <span>70–89 · Needs review</span>
             </div>
             <div className="text-red-400 font-semibold flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-red-400 inline-block" />
-              <span>&lt;70: Audit Required</span>
+              <span>&lt;70 · Action needed</span>
             </div>
           </div>
         </div>
@@ -137,7 +136,7 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
 
       {/* Critical Violation Alert Banner */}
       {flaggedRoute && (
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-red-950/80 via-red-900/40 to-gray-900 border border-red-700/60 shadow-2xl shadow-red-950/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="p-4 sm:p-5 rounded-2xl bg-red-50 border border-red-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start space-x-3.5">
             <div className="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/40 flex items-center justify-center shrink-0 mt-0.5">
               <ShieldAlert className="w-6 h-6 text-red-400 animate-pulse" />
@@ -145,16 +144,16 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/30">
-                  CRITICAL NON-COMPLIANCE ALERT
+                  ROUTE NEEDS ATTENTION
                 </span>
-                <span className="text-xs text-red-300/80">Automated AI Detection</span>
+                <span className="text-xs text-red-300/80">Photo review</span>
               </div>
               <h3 className="text-base font-bold text-white mt-1">
-                Segregation Breach Identified on {flaggedRoute.name} (Vehicle {flaggedRoute.vehicle})
+                Contamination detected on {flaggedRoute.name}
               </h3>
               <p className="text-xs text-red-200 mt-1 max-w-3xl">
                 {flaggedRoute.flag_reason ||
-                  'Computer vision detected foreign plastics (PET bottles & polybags) mixed into the wet waste compartment at Transfer Station TS-04. Route Integrity Score dropped to 66.7.'}
+                  'Foreign materials were found at Transfer Station TS-04. The route score is now 66.7, so this handoff needs review.'}
               </p>
             </div>
           </div>
@@ -181,27 +180,27 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 shadow-lg">
           <div className="flex items-center justify-between text-gray-400 text-xs font-medium">
-            <span>Total Active Routes</span>
+            <span>Routes monitored</span>
             <Truck className="w-4 h-4 text-emerald-400" />
           </div>
-          <div className="text-2xl font-black text-white mt-1">{routes.length} Active</div>
+          <div className="text-2xl font-black text-white mt-1">{routes.length} routes</div>
           <div className="text-[11px] text-gray-500 mt-1">100% telemetry coverage</div>
         </div>
 
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 shadow-lg">
           <div className="flex items-center justify-between text-gray-400 text-xs font-medium">
-            <span>High Integrity Routes</span>
+            <span>On-track routes</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           </div>
           <div className="text-2xl font-black text-emerald-400 mt-1">
-            {routes.filter((r) => r.status === 'HIGH_INTEGRITY').length} Routes
+            {routes.filter((r) => r.status === 'HIGH_INTEGRITY').length} routes
           </div>
           <div className="text-[11px] text-emerald-500/80 mt-1">≥90 Route Score</div>
         </div>
 
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 shadow-lg">
           <div className="flex items-center justify-between text-gray-400 text-xs font-medium">
-            <span>Flagged for Inspection</span>
+            <span>Needs inspection</span>
             <AlertTriangle className="w-4 h-4 text-red-400" />
           </div>
           <div className="text-2xl font-black text-red-400 mt-1">
@@ -212,11 +211,11 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
 
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 shadow-lg">
           <div className="flex items-center justify-between text-gray-400 text-xs font-medium">
-            <span>Primary Failure Point</span>
+            <span>Handoff to review</span>
             <Building className="w-4 h-4 text-amber-400" />
           </div>
           <div className="text-2xl font-black text-amber-400 mt-1">Transfer Station</div>
-          <div className="text-[11px] text-gray-400 mt-1">68% of post-pickup mixing occurs here</div>
+          <div className="text-[11px] text-gray-400 mt-1">Review transfer-stage handoffs</div>
         </div>
       </div>
 
@@ -226,13 +225,13 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
         <div className="lg:col-span-7 bg-gray-900 border border-gray-800 rounded-2xl p-5 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-bold text-white">Segregation Integrity Across Handoff Stages</h3>
+              <h3 className="text-base font-bold text-white">Integrity at each handoff</h3>
               <p className="text-xs text-gray-400">
-                Average integrity score drop from collection to processing plant
+                Average score from collection through to the processing plant
               </p>
             </div>
             <span className="text-xs px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-              Digital Chain of Custody
+              Handoff records
             </span>
           </div>
 
@@ -243,8 +242,8 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
                 <XAxis dataKey="stage" stroke="#6b7280" fontSize={11} />
                 <YAxis domain={[0, 100]} stroke="#6b7280" fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#111827', borderColor: '#374151', borderRadius: '0.75rem' }}
-                  itemStyle={{ color: '#10b981' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e1e8e3', borderRadius: '0.75rem' }}
+                  itemStyle={{ color: '#176b45' }}
                 />
                 <Bar dataKey="score" fill="#10b981" radius={[6, 6, 0, 0]} barSize={45} />
               </BarChart>
@@ -256,8 +255,8 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
         <div className="lg:col-span-5 bg-gray-900 border border-gray-800 rounded-2xl p-5 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-bold text-white">Detected Contaminant Types</h3>
-              <p className="text-xs text-gray-400">Frequency of foreign items flagged by YOLOv8</p>
+              <h3 className="text-base font-bold text-white">Materials flagged</h3>
+              <p className="text-xs text-gray-400">Items identified in audit photos</p>
             </div>
             <span className="text-xs px-2.5 py-1 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 font-medium">
               CV Detections
@@ -289,7 +288,7 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#111827', borderColor: '#374151', borderRadius: '0.75rem' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e1e8e3', borderRadius: '0.75rem' }}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -303,10 +302,10 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
           <div>
             <h2 className="text-lg font-bold text-white flex items-center space-x-2">
               <Layers className="w-5 h-5 text-emerald-400" />
-              <span>Route Ranking & Chain-of-Custody Log</span>
+              <span>Routes and handoff records</span>
             </h2>
             <p className="text-xs text-gray-400">
-              Formula: Route Score = (Sum of w_i * S_i) / (Sum of w_i). Equal handoff weighting.
+              Each route score is the average of its recorded handoff scores.
             </p>
           </div>
 
@@ -316,7 +315,7 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
               <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="Search route, vehicle..."
+                placeholder="Find a route or vehicle"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="bg-gray-950 border border-gray-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 w-48"
@@ -334,7 +333,7 @@ export const MunicipalityDashboard: React.FC<MunicipalityDashboardProps> = ({
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  {st === 'ALL' ? 'All' : st.replace('_', ' ')}
+                  {st === 'ALL' ? 'All routes' : st === 'FLAGGED' ? 'Needs review' : st === 'NEEDS_ATTENTION' ? 'Needs attention' : 'On track'}
                 </button>
               ))}
             </div>

@@ -32,14 +32,13 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
       <div className="text-center space-y-2">
         <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
           <Leaf className="w-3.5 h-3.5" />
-          <span>Public Transparency & Citizen Trust Portal</span>
+          <span>PUBLIC WASTE AUDIT</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold text-white">
-          "Did My Segregated Waste Stay Segregated?"
+          See what happened after collection
         </h1>
         <p className="text-sm text-gray-400 max-w-2xl mx-auto">
-          Citizens work hard separating wet peels and clean recyclables. This public transparency audit
-          verifies whether the municipal haulers kept your waste segregated after it was collected.
+          Choose your ward to see whether waste stayed separated during collection, transfer, and delivery.
         </p>
       </div>
 
@@ -47,7 +46,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center space-x-2 text-sm text-gray-300">
           <Search className="w-4 h-4 text-emerald-400" />
-          <span>Select Your Ward / Locality:</span>
+          <span>Choose a ward</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -74,7 +73,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center space-x-1.5">
               <Heart className="w-4 h-4" />
-              <span>Step 1: Household Segregation</span>
+              <span>At the household</span>
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">
               100% Verified
@@ -82,7 +81,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
           </div>
 
           <div>
-            <div className="text-3xl font-black text-white">Citizen Compliance: 100/100</div>
+            <div className="text-3xl font-black text-white">Household sorting: 100/100</div>
             <p className="text-xs text-gray-400 mt-1">
               Residents of {activeRoute.name} properly separated their kitchen food waste into green bins
               before collection.
@@ -110,7 +109,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
               }`}
             >
               <Truck className="w-4 h-4" />
-              <span>Step 2 & 3: Post-Pickup Custody</span>
+              <span>After collection</span>
             </span>
             <span
               className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${
@@ -160,8 +159,8 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
             )}
             <span>
               {isRouteFlagged
-                ? 'Municipality is investigating Hauler ' + activeRoute.vehicle + ' rather than penalizing citizens.'
-                : 'Pristine chain of custody confirmed from collection to bio-methanation.'}
+                ? 'The municipality is reviewing vehicle ' + activeRoute.vehicle + ' rather than placing responsibility on residents.'
+                : 'Waste remained separated through delivery to the processing facility.'}
             </span>
           </div>
         </div>
@@ -170,7 +169,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
       {/* Citizen Trust Action Bar */}
       <div className="bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-bold text-white">Full Chain-of-Custody Photographic Evidence</h3>
+          <h3 className="text-base font-bold text-white">See the handoff photos</h3>
           <p className="text-xs text-gray-400">
             View the photographic proof captured at collection, transfer station, and plant gate.
           </p>
@@ -180,7 +179,7 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({ routes, onInspectR
           onClick={() => onInspectRoute(activeRoute)}
           className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center space-x-1.5 shrink-0"
         >
-          <span>View Public Evidence Trail</span>
+          <span>View audit record</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>

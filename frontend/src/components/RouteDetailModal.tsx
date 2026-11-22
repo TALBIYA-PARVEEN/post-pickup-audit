@@ -37,11 +37,11 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto">
       <div className="relative w-full max-w-5xl bg-gray-900 border border-gray-800 rounded-3xl shadow-2xl overflow-hidden my-8">
         {/* Modal Header */}
-        <div className="p-6 border-b border-gray-800 flex items-start justify-between bg-gradient-to-r from-gray-900 via-gray-900 to-gray-850">
+        <div className="p-6 border-b border-gray-800 flex items-start justify-between bg-gray-50">
           <div className="space-y-1">
             <div className="flex items-center space-x-2">
               <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase">
-                Digital Chain of Custody Record
+                AUDIT RECORD
               </span>
               <span className="text-xs text-gray-400 font-mono">ID: {route.id}</span>
             </div>
@@ -68,12 +68,13 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
             <button
               onClick={handlePrint}
               className="p-2 rounded-xl bg-gray-800 hover:bg-gray-750 text-gray-300 border border-gray-700 transition-colors"
-              title="Print Chain of Custody Certificate"
+              title="Print audit record"
             >
               <Printer className="w-4 h-4" />
             </button>
             <button
               onClick={onClose}
+              aria-label="Close audit record"
               className="p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors"
             >
               <X className="w-5 h-5" />
@@ -98,7 +99,7 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-xs font-bold uppercase tracking-wider">
-                  {isFlagged ? 'Accountability Verdict: Segregation Breakdown Identified' : 'Integrity Verified'}
+                  {isFlagged ? 'Needs review · segregation changed' : 'Integrity maintained'}
                 </span>
                 <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-black/40">
                   Route Score: {route.route_score}/100
@@ -107,7 +108,7 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
               <p className="text-xs mt-1 leading-relaxed">
                 {isFlagged ? (
                   <>
-                    <strong className="text-white">Pinpoint Audit Finding:</strong> Household collection was{' '}
+                    <strong className="text-white">Audit finding:</strong> Household collection was{' '}
                     <span className="text-emerald-400 font-bold">100% compliant</span> at doorstep. Segregation failed
                     specifically during bulk transfer at <strong className="text-white">Transfer Station TS-04</strong>,
                     where foreign PET plastic bottles and blue polybags were introduced.
@@ -128,7 +129,7 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-200 uppercase tracking-wider flex items-center space-x-2">
               <FileCheck className="w-4 h-4 text-emerald-400" />
-              <span>Custody Timeline & Photographic Evidence Comparison</span>
+              <span>Handoff timeline and photo evidence</span>
             </h3>
             <span className="text-xs text-gray-500 font-medium">3 Audited Handoffs</span>
           </div>
@@ -229,7 +230,7 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
           {/* Mathematical Proof Card */}
           <div className="bg-gray-950 border border-gray-800 rounded-2xl p-4 text-xs text-gray-400 space-y-1.5">
             <div className="font-semibold text-gray-200 flex items-center justify-between">
-              <span>Mathematical Route Integrity Calculation:</span>
+              <span>How the route score is calculated</span>
               <span className="text-emerald-400 font-mono font-bold">
                 Route Score = {route.route_score} / 100
               </span>
@@ -239,7 +240,7 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
               {route.route_score}
             </p>
             <p className="text-[11px] text-gray-500">
-              Audit status reflects post-pickup chain of custody integrity as established by municipal solid waste regulations.
+              Each score summarises the visual check recorded at that handoff.
             </p>
           </div>
         </div>
@@ -253,14 +254,14 @@ export const RouteDetailModal: React.FC<RouteDetailModalProps> = ({
             }}
             className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-semibold transition-colors"
           >
-            Record New Handoff Audit for this Route
+            Record another handoff
           </button>
 
           <button
             onClick={onClose}
             className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all"
           >
-            Close Inspector
+            Done
           </button>
         </div>
       </div>
